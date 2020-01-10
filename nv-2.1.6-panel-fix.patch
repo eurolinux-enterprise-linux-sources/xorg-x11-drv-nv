@@ -9,15 +9,15 @@ diff -up xf86-video-nv-2.1.6/src/nv_setup.c.jx xf86-video-nv-2.1.6/src/nv_setup.
 -              (!monitorA->features.input_type && !pNv->FlatPanel))
 -           {
 -               if(monitorB) { 
--                  xfree(monitorB);
+-                  free(monitorB);
 -                  monitorB = NULL;
 -               }
 -           } else {
--              xfree(monitorA);
+-              free(monitorA);
 -              monitorA = NULL;
 -           }
 +	   if(monitorB) { 
-+	       xfree(monitorB);
++	       free(monitorB);
 +	       monitorB = NULL;
 +	   }
         }
@@ -26,7 +26,7 @@ diff -up xf86-video-nv-2.1.6/src/nv_setup.c.jx xf86-video-nv-2.1.6/src/nv_setup.
 -           if((monitorB->features.input_type && !pNv->FlatPanel) ||
 -              (!monitorB->features.input_type && pNv->FlatPanel)) 
 -           {
--              xfree(monitorB);
+-              free(monitorB);
 -           } else {
 -              monitorA = monitorB;
 -           }

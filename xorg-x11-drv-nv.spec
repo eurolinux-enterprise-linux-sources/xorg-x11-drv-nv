@@ -4,8 +4,8 @@
 
 Summary:   Xorg X11 nv video driver
 Name:      xorg-x11-drv-nv
-Version:   2.1.15
-Release:   4%{?dist}
+Version:   2.1.18
+Release:   2%{?dist}
 URL:       http://www.x.org
 License: MIT
 Group:     User Interface/X Hardware Support
@@ -20,17 +20,14 @@ BuildRequires: xorg-x11-server-devel >= 1.6.0
 BuildRequires: libdrm-devel >= 2.3.0-7
 
 Requires:  hwdata
-Requires:  xorg-x11-server-Xorg >= 1.6.0
+Requires: Xorg %(xserver-sdk-abi-requires ansic)
+Requires: Xorg %(xserver-sdk-abi-requires videodrv)
 
 Patch4:     nv-reserve-fbarea.patch
 Patch5:	    nv-2.1.6-starvation.patch
 Patch6:	    nv-2.1.6-panel-fix.patch
 Patch7:	    nv-save-rom.patch
 Patch9:	    nv-2.1.8-g80-no-doublescan.patch
-Patch10:    nv-2.1.12-gf7025-gf7050.patch
-Patch11:    nv-refuse-kms.patch
-Patch12:    nv-2.1.15-g80-nop-gamma.patch
-Patch13:    nv-2.1.15-g80-update.patch
 
 %description 
 X.Org X11 nv video driver.
@@ -43,10 +40,6 @@ X.Org X11 nv video driver.
 %patch6 -p1 -b .panel
 %patch7 -p1 -b .save-rom
 %patch9 -p1 -b .doublescan
-%patch10 -p1 -b .nv6x
-%patch11 -p1 -b .nokms
-%patch12 -p1 -b .gamma
-%patch13 -p1 -b .g80-update
 
 %build
 autoreconf -v --install
@@ -74,6 +67,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man4/nv.4*
 
 %changelog
+* Wed Jun 29 2011 Ben Skeggs <bskeggs@redhat.com> 2.1.18-2
+- fixup requires to lock to new server abi
+
+* Fri Jun 24 2011 Ben Skeggs <bskeggs@redhat.com> 2.1.18-1
+- nv 2.1.18
+- nv-2.1.6-panel-fix.patch: fixup for libcwrapper removal
+- dropped patches for issues now fixed upstream
+
 * Thu Nov 12 2009 Adam Jackson <ajax@redhat.com> 2.1.15-4
 - nv.xinf: Update for same.
 
