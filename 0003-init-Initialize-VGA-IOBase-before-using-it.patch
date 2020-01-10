@@ -1,0 +1,33 @@
+From 0b6619fec39fada995646fb95bb25e72d3c9a491 Mon Sep 17 00:00:00 2001
+From: Egbert Eich <eich@freedesktop.org>
+Date: Tue, 13 Aug 2013 20:36:59 +0200
+Subject: [PATCH 3/3] init: Initialize VGA IOBase before using it
+
+The NV driver did never set the VGA IOBase for those registers which
+have different addresses dependent whether the VGA engine is running in
+mono or color mode.
+This has not been detected as the VGA mode and font save/restore
+functions initialize this value themselves.
+
+Signed-off-by: Egbert Eich <eich@freedesktop.org>
+Reviewed-by: Mark Kettenis <kettenis@openbsd.org>
+---
+ src/nv_setup.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/nv_setup.c b/src/nv_setup.c
+index 203e7b2..92ca3ec 100644
+--- a/src/nv_setup.c
++++ b/src/nv_setup.c
+@@ -491,6 +491,8 @@ NVCommonSetup(ScrnInfoPtr pScrn)
+ 
+     pNv->Television = FALSE;
+ 
++    vgaHWGetIOBase(pVga);
++
+     if(!pNv->twoHeads) {
+        pNv->CRTCnumber = 0;
+        if((monitorA = NVProbeDDC(pScrn, 0))) {
+-- 
+1.8.5.3
+

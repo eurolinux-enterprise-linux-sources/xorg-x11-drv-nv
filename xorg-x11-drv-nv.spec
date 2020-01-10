@@ -5,7 +5,7 @@
 Summary:   Xorg X11 nv video driver
 Name:      xorg-x11-drv-nv
 Version:   2.1.20
-Release:   4%{?dist}
+Release:   5%{?dist}
 URL:       http://www.x.org
 License: MIT
 Group:     User Interface/X Hardware Support
@@ -25,6 +25,10 @@ Patch5:	    nv-2.1.6-starvation.patch
 Patch6:	    nv-2.1.6-panel-fix.patch
 Patch7:	    nv-save-rom.patch
 Patch9:	    nv-2.1.8-g80-no-doublescan.patch
+Patch10:    0001-Remove-mibstore.h.patch
+Patch11:    0002-Include-xf86Modes.h-to-use-functions-from-hw-xfree86.patch
+Patch12:    0003-init-Initialize-VGA-IOBase-before-using-it.patch
+
 
 %description 
 X.Org X11 nv video driver.
@@ -37,6 +41,9 @@ X.Org X11 nv video driver.
 %patch6 -p1 -b .panel
 %patch7 -p1 -b .save-rom
 %patch9 -p1 -b .doublescan
+%patch10 -p1 -b .mibstore
+%patch11 -p1 -b .modes
+%patch12 -p1 -b .vgahw
 
 %build
 autoreconf -v --install --force
@@ -60,6 +67,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man4/nv.4*
 
 %changelog
+* Wed Apr 23 2014 Adam Jackson <ajax@redhat.com> 2.1.20-5
+- Sync with git
+- Rebuild for server 1.15
+
 * Wed Aug 22 2012 airlied@redhat.com - 2.1.20-4
 - rebuild for server ABI requires
 

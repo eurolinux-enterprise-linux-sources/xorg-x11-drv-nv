@@ -1,0 +1,29 @@
+From 49ee1c26ea982e302169c949ebd0abb9d8ef362c Mon Sep 17 00:00:00 2001
+From: Jeremy White <jwhite@codeweavers.com>
+Date: Thu, 21 Mar 2013 08:59:06 -0700
+Subject: [PATCH 2/3] Include xf86Modes.h to use functions from
+ hw/xfree86/modes/xf86Modes.c.
+
+Signed-off-by: Jeremy White <jwhite@codeweavers.com>
+Reviewed-by: Robert Morell <rmorell@nvidia.com>
+Reviewed-by: Aaron Plattner <aplattner@nvidia.com>
+Signed-off-by: Aaron Plattner <aplattner@nvidia.com>
+---
+ src/nv_include.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/nv_include.h b/src/nv_include.h
+index f174eef..72c74d5 100644
+--- a/src/nv_include.h
++++ b/src/nv_include.h
+@@ -27,6 +27,7 @@
+ #include "micmap.h"
+ 
+ #include "xf86DDC.h"
++#include "xf86Modes.h"
+ 
+ #include "vbe.h"
+ 
+-- 
+1.8.5.3
+
