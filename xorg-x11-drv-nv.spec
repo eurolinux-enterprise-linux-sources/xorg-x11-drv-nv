@@ -4,22 +4,19 @@
 
 Summary:   Xorg X11 nv video driver
 Name:      xorg-x11-drv-nv
-Version:   2.1.18
-Release:   2%{?dist}
+Version:   2.1.20
+Release:   4%{?dist}
 URL:       http://www.x.org
 License: MIT
 Group:     User Interface/X Hardware Support
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source0:   ftp://ftp.x.org/pub/individual/driver/%{tarball}-%{version}.tar.bz2
-Source1:   nv.xinf
 
 ExcludeArch: s390 s390x
 
-BuildRequires: xorg-x11-server-devel >= 1.6.0
+BuildRequires: xorg-x11-server-devel >= 1.10.99.902
 BuildRequires: libdrm-devel >= 2.3.0-7
 
-Requires:  hwdata
 Requires: Xorg %(xserver-sdk-abi-requires ansic)
 Requires: Xorg %(xserver-sdk-abi-requires videodrv)
 
@@ -42,7 +39,7 @@ X.Org X11 nv video driver.
 %patch9 -p1 -b .doublescan
 
 %build
-autoreconf -v --install
+autoreconf -v --install --force
 %configure --disable-static
 make %{?_smp_mflags}
 
@@ -50,9 +47,6 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
-
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/hwdata/videoaliases
-install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/hwdata/videoaliases/
 
 find $RPM_BUILD_ROOT -regex ".*\.la$" | xargs rm -f --
 
@@ -63,17 +57,26 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc COPYING README.G80
 %{driverdir}/nv_drv.so
-%{_datadir}/hwdata/videoaliases/nv.xinf
 %{_mandir}/man4/nv.4*
 
 %changelog
-* Wed Jun 29 2011 Ben Skeggs <bskeggs@redhat.com> 2.1.18-2
-- fixup requires to lock to new server abi
+* Wed Aug 22 2012 airlied@redhat.com - 2.1.20-4
+- rebuild for server ABI requires
 
-* Fri Jun 24 2011 Ben Skeggs <bskeggs@redhat.com> 2.1.18-1
+* Wed Aug 08 2012 Ben Skeggs <bskeggs@redhat.com> 2.1.20-3
+- nv 2.1.20
+
+* Tue Aug 24 2010 Ben Skeggs <bskeggs@redhat.com> 2.1.18-2
+- fixup patchset to apply against nv 2.1.18
+
+* Mon Aug 02 2010 Adam Jackson <ajax@redhat.com> 2.1.18-1
 - nv 2.1.18
-- nv-2.1.6-panel-fix.patch: fixup for libcwrapper removal
-- dropped patches for issues now fixed upstream
+
+* Mon Jul 05 2010 Peter Hutterer <peter.hutterer@redhat.com> - 2.1.15-6
+- rebuild for X Server 1.9
+
+* Thu Jan 21 2010 Peter Hutterer <peter.hutterer@redhat.com> - 2.1.15-5
+- Rebuild for server 1.8
 
 * Thu Nov 12 2009 Adam Jackson <ajax@redhat.com> 2.1.15-4
 - nv.xinf: Update for same.

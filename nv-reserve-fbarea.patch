@@ -28,13 +28,13 @@ index 4bcc391..6252dd2 100644
 +
 +
 +    if (!xf86InitFBManager(pScreen, &AvailFBArea)) {
-+	xf86DrvMsg(scrnIndex, X_ERROR,
++	xf86DrvMsg(pScrn->scrnIndex, X_ERROR,
 +		   "Memory manager initialized to (%d,%d) (%d,%d)  failed\n",
 +		   AvailFBArea.x1, AvailFBArea.y1, AvailFBArea.x2, AvailFBArea.y2);
 +	return FALSE;
 +    }
 +
-+    xf86DrvMsg(scrnIndex, X_INFO,
++    xf86DrvMsg(pScrn->scrnIndex, X_INFO,
 +	       "Memory manager initialized to (%d,%d) (%d,%d)\n",
 +	       AvailFBArea.x1, AvailFBArea.y1, AvailFBArea.x2, AvailFBArea.y2);
 +    
@@ -43,12 +43,12 @@ index 4bcc391..6252dd2 100644
 +					    NV_ALIGN(pScrn->virtualY, 64) -
 +					    pScrn->virtualY + 2,
 +					    0, NULL, NULL, NULL))) {
-+	xf86DrvMsg(scrnIndex, X_INFO,
++	xf86DrvMsg(pScrn->scrnIndex, X_INFO,
 +		   "Reserved area from (%d,%d) to (%d,%d)\n",
 +		   fbarea->box.x1, fbarea->box.y1,
 +		   fbarea->box.x2, fbarea->box.y2);
 +    } else {
-+	xf86DrvMsg(scrnIndex, X_ERROR, "Unable to reserve area\n");
++	xf86DrvMsg(pScrn->scrnIndex, X_ERROR, "Unable to reserve area\n");
 +    }
      
      if (!pNv->NoAccel)
